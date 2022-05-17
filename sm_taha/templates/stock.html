@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} General Stock {% endblock %}
+{% block body %}
+    <div class="container table-responsive">
+        <h1>GENERAL STOCK</h1>
+        <table class="table table-bordered border-secondary table-hover" style="margin-top: 5%">
+            <thead>
+            <tr>
+                <th scope="col">Malzeme</th>
+                <th scope="col">Adet</th>
+                <th scope="col">Birim</th>
+                <th scope="col">Lokasyon</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in stock %}
+                <tr class="text-center">
+                    <td>{{ item['malzeme'] }}
+                        <a class='float-end'href="{{ url_for('edit_stock', id=item['id']) }}">
+                            <span class="btn-sm btn-secondary">Edit</span>
+                        </a>
+                    </td>
+                    <td>{{ item['adet'] }}
+                    </td>
+                    <td>{{ item['birim'] }}</td>
+                    <td>{{ item['lokasyon'] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

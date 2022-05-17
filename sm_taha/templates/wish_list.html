@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %} Wish List {% endblock %}
+{% block body %}
+
+    <div class="container">
+        <form method="post">
+            <div class="row-2 g-3">
+                <div class="col">
+                    <label for="malzeme">Malzeme</label>
+                    <input type="text" name="malzeme" class="form-control"
+                           placeholder="Ornek: 'yumurta 30 tane pastane'"
+                           value="{{ request.form['malzeme'] }}">
+                </div>
+                <br>
+                <div class="row-2 col">
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive">
+            <h1>WISH LIST</h1>
+            <table class="table table-bordered border-secondary table-hover" style="margin-top: 5%">
+                <thead>
+                <tr>
+                    <th scope="col">Malzeme</th>
+                    <th scope="col">Adet</th>
+                    <th scope="col">Birim</th>
+                    <th scope="col">Lokasyon</th>
+                    <th scope="col">Tarih</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for wish in wish_list %}
+                    <tr class="text-center">
+                        <td>{{ wish['malzeme'] }}
+                            <div class="row">
+                                <form class="col" action="{{ url_for('add_stock', id=wish['id']) }}" method="POST">
+
+                                    <input type="submit" value="Ekle"
+                                           class="btn-primary btn-sm">
+                                </form>
+                                <form class="col" action="{{ url_for('delete_wish', id=wish['id']) }}" method="POST">
+
+                                    <input type="submit" value="Sil"
+                                           class="btn-danger btn-sm"
+                                           onclick="return confirm('Are you sure you want to delete this post?')">
+                                </form>
+                            </div>
+                        </td>
+                        <td>{{ wish['adet'] }}</td>
+                        <td>{{ wish['birim'] }}</td>
+                        <td>{{ wish['lokasyon'] }}</td>
+                        <td>{{ wish['tarih'] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
